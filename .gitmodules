@@ -1,6 +1,7 @@
 [submodule "2025_26"]
 	path = 2025_26
 	url = https://github.com/ematm0067/2025_26.git
+	branch = master
 [submodule "text_labs_public"]
 	path = text_labs_public
 	url = https://github.com/uob-TextAnalytics/text_labs_public.git
