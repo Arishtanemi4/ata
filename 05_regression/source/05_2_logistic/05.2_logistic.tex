@@ -88,7 +88,7 @@ that the values are between zero and one, so
 \end{equation}
 where $f:\mathbb{R}\rightarrow[0,1]$ and
 \begin{equation}
-\hat{p_i}=f(\beta_1 a)i+\beta_0)
+\hat{p}_i=f(\beta_1 a)i+\beta_0)
 \end{equation}
 is not the estimated probability that someone aged $a_i$ will prefer
 `snuck'. One example of a function that does this is the logistic
@@ -115,7 +115,7 @@ have a model
 \begin{equation}
 \hat{p}(x)=\sigma(\beta_1 x+\beta_0)
 \end{equation}
-so $p(x_i)$ is the `true probability' for success when $x=x_i$ and out
+so $p(x_i)$ is the `true probability' for success when $x=x_i$ and our
 estimate for the probability is $\hat{p}(x_i)$.  Given some data, we
 are interested in how well the estimated probabilities predict the
 actual results. This leads to the important concept of
@@ -133,7 +133,7 @@ For a set of data
 \begin{equation}
   \mathcal{D}=\{(x_1,y_1),(x_2,y_2),\ldots,(x_n,y_n)\}
 \end{equation}
-where $y_i=1$ for success and $y_1=0$ for failure, the overall
+where $y_i=1$ for success and $y_i=0$ for failure, the overall
 likelihood is
 \begin{equation}
   L=\prod_{y_i=1}\hat{p}(x_i)\prod_{y_i=0}(1-\hat{p}(x_i))
@@ -182,7 +182,7 @@ $\theta$ which minimizes `stuff'.
 Now we need to do some calculus. Lets get the little pieces we
 need. Using the quotient rule you can check
 \begin{equation}
-  \frac{d\sigma{x}}{dx}=\sigma(x)[1-\sigma(x)]
+  \frac{d\sigma(x)}{dx}=\sigma(x)[1-\sigma(x)]
 \end{equation}
 and you should recall that
 \begin{equation}
@@ -200,8 +200,8 @@ In fact, putting this together, along with the two similar derivatives, we find
 \begin{align}
   \frac{d\log{\hat{p}}}{d\beta_0}&=1-\hat{p}\\  \nonumber
     \frac{d\log{\hat{p}}}{d\beta_1}&=x(1-\hat{p})\\ \nonumber
-  \frac{d\log{(1-\hat{p})}}{d\beta_0}&=\hat{p}\\ \nonumber
-  \frac{d\log{(1-\hat{p})}}{d\beta_1}&=x\hat{p}
+  \frac{d\log{(1-\hat{p})}}{d\beta_0}&=-\hat{p}\\ \nonumber
+  \frac{d\log{(1-\hat{p})}}{d\beta_1}&=-x\hat{p}
 \end{align}
 Clearly the logistic function is very convenient but not convenient
 enough for a closed form solution. These formula mean that the
@@ -233,10 +233,10 @@ Returning to our example we can fit the logistic curve, we find $\beta_0=-4.03$ 
   \end{center}
 We can see that there is a nice fit. The data are from twenty years
 ago, you could imagine replacing the age with date of birth to use
-this curve to make predictions about how people speak today. In
+this curve to make predictions about how people speak today. I
 performed an undersampled study, well to be more honest I asked
 exactly one person from the Golden Horseshoe what they would say and
-the said ``snuck'' for sure, that they were aware of `sneaked' as an
+they said ``snuck'' for sure, that they were aware of `sneaked' as an
 alternative but it seemed very old-fashioned.
 
 Logistic regression is one of the basic tools of data science and is
@@ -251,7 +251,7 @@ can expect it to work, no more than our discussion of linear
 regression explained why it is often useful. This, of course, is a
 complicated question; in the case of linear regression we can point to
 the frequency of linear rules in nature and to the prominence of the
-linear term in a Taylor expansion; we can also point to the imperical
+linear term in a Taylor expansion; we can also point to the emperical
 fact that it often works. In the case of logistic regression the
 discussion is even more complicated because we need to also account
 for the particular form of the logistic function.
@@ -285,7 +285,7 @@ a linear model for the log-odds. My own feeling is that the precise
 choice of a sigmoid function does not really matter, the link to
 log-odds is elegant but does not give a simple proof that the logistic
 function is the `best' sigmoid function; however, the calculus works
-out nicely using the logistic function and imperically we know
+out nicely using the logistic function and emperically we know
 logistic regression is often useful!
 
 As a final note, obviously everything we've done here has relied on a
@@ -309,7 +309,7 @@ no, zero or one, failure of success. A common model for this is logistic regress
 \end{equation}
 where $\sigma(x)=1/(1+\exp{(-x)})$ is the logistic function. To find the parameters we usually minimize the negative log-likelihood.
 \begin{equation}
-  \mathcal{E}=-\log{L}=-\sum_{y_i=1}\log\hat{p}(\mathbf{x}_i)-\sum_{y_i=1}\log[1-\hat{p}(\mathbf{x}_1)]
+  \mathcal{E}=-\log{L}=-\sum_{y_i=1}\log\hat{p}(\mathbf{x}_i)-\sum_{y_i=0}\log[1-\hat{p}(\mathbf{x}_i)]
 \end{equation}
 This is done numerically.
 \end{document}
