@@ -36,7 +36,7 @@ functions from data and we haven't discussed how neural networks are
 trained. We will discuss that here, but in a way that won't explain
 the full power of these networks; there is an unreasonable
 effectiveness to learning in deep-learning neural networks, deep here
-many networks with many layers and the role deepness plays in this
+means networks with many layers and the role deepness plays in this
 unreasonable effectiveness is one of the mysteries.
 
 Sometimes too much is made of the fact that we don't fully understand
@@ -44,7 +44,7 @@ how deep learning networks work, or, rather, why they work so
 well. However, one of the glories of engineering is that something can
 be useful even if you don't fully understand it and a mystery, of
 course, is exciting for scientists, it is a door you can hope to pass
-through.
+through, a door into the dark.
 
 Anyway, we have already touched on the mechanism used to train a
 neural network. Basically, if you have an objective function, a
@@ -73,23 +73,33 @@ loss as the objective and optimize it.
 Lets consider a typical situation, you have input $\mathbf{x}$ and
 output $\mathbf{y}$ so that $\mathbf{y}(\textbf{x};\theta)$ and the
 $\theta$ are a set of parameters. In the most straight-forward case
-these parameters will weights and biases for a neural
+these parameters will be weights and biases for a neural
 network. Typically there will be a dataset
 \begin{equation}
   \mathcal{D}=\{(\mathbf{x}^a,\mathbf{y}^a)|a=1\ldots N\}
 \end{equation}
 so, here, there are $N$ data points and I am using a superscript as
 the data index, a subscript will be used for the components of the
-vector, so the first data point in the list is
+vector\footnote{I have previously owned up to the inconsistency of how I use indices; computer scientists reasonably don't use superscipts so much since in computer code indices are indices are indices!}, so the first data point in the list is
 \begin{equation}
   \mathbf{x}^1=(x^1_1,x^1_2,\ldots,x^1_{n_x})
 \end{equation}
 and $n_x$ here is the size of the input, we will use $n_y$ for the
 size of the output. For a classification problem the $\mathbf{y}^a$
-will be \textsl{one hot vectors}, which means they will have a single
-one value corresponding to the class of the item and zeros for all the
-other entries, so if the first item in the data set belongs to class
-$k$ then
+will be \textsl{one hot vectors}\footnote{Almost all of machine
+learning for classification uses one hot vectors; at first it seems
+proflicate, allowing denser coding in the outside later would result
+in much shorter output vectors, indeed logarithmically shorter, but
+this doesn't work, the corresponding outputs are just much harder to
+learn and the idea of considering the output as giving probabilities
+to compare to the one-hot target output would be very complicated for
+a dense representation. In practice, the neural network learns a dense
+representation itself for the layer immeadiately before the output
+layer and a matrix of weights translating this the typically very
+large output vector.}, which means they will have a single one value
+corresponding to the class of the item and zeros for all the other
+entries, so if the first item in the data set belongs to class $k$
+then
 \begin{equation}
   \mathbf{y}^1=(0,0,\ldots,1,\ldots,0,0)
 \end{equation}
@@ -199,8 +209,14 @@ approximating the objective, this is illustrated in
 Fig.~\ref{fig:objective_noise}. This introduces noise which should
 affect some features more than others, meaning that the descent is
 less likely to get stuck, the use of batches adds a little randomness
-which actually seems to make the optimization more robust.
-
+which actually seems to make the optimization more robust; as a
+side-note the idea that SGD helps you avoid getting stuck is probably
+a small bit misleading, the gradient flow proceeds in a very
+high-dimensional space and so local minima are probably rare compared
+to narrow and tortuous valleys and the stochastic element is probably
+most useful in avoiding those; so the cartoon in the figure is like a
+slice through the high-dimensional space and the point holds even if
+the directions are at minima.
 
 
 \begin{figure}[htb]
@@ -223,7 +239,21 @@ to make training robust and improve behaviour on data points not
 included in the training set.
 
 
-
+This is not at all the end of the story. One obvious problem is that
+you might expect the gradients to be very low when you are far from
+the true solution; two different very wrong answers will produce more
+or less the same error, whereas the gradient will be high when we are
+close to the minimum. This is exactly what we don't want, it means we
+move slowly when we are far away and precision isn't required and
+quickly when we are close and it is. This implies some sort of
+dynamical adjustment should be made to the learning rate and, indeed,
+there are many approaches to that, including the every popular ADAM
+optimiser; though, strictly, ADAM does more than that by including
+contributions from the second derivative. A lot of current effort in
+machine learning is focused on issues of how to do learning in an
+efficient, stable and useful way: adjusting learning steps and
+rescaling weights so that some don't `take over' by become too large,
+for example.
 
 
 
