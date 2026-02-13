@@ -5,6 +5,3 @@
 [submodule "text_labs_public"]
 	path = text_labs_public
 	url = https://github.com/uob-TextAnalytics/text_labs_public.git
-[submodule "2025_2026_ata_uob"]
-	path = 2025_2026_ata_uob
-	url = https://github.com/Arishtanemi4/2025_2026_ata_uob.git
